@@ -7,6 +7,8 @@ var connectionString = builder.Configuration.GetConnectionString("sales_web_mvcC
 builder.Services.AddDbContext<sales_web_mvcContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddScoped<SeedingService>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -30,5 +32,22 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Services.CreateScope().ServiceProvider.GetRequiredService<sales_web_mvcContext>().Database.Migrate();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var seedingService = services.GetRequiredService<SeedingService>();
+        seedingService.Seed();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Um erro ocorreu durante o preenchimento do banco de dados.");
+    }
+}
 
 app.Run();
