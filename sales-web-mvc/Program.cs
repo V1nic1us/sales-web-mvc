@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using sales_web_mvc.Data;
+using sales_web_mvc.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("sales_web_mvcContext") ?? throw new InvalidOperationException("String de conexão 'sales_web_mvcContext' não encontrada.");
@@ -8,6 +9,7 @@ builder.Services.AddDbContext<sales_web_mvcContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
