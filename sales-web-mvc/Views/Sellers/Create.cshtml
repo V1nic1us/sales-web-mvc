@@ -1,9 +1,9 @@
-﻿@model sales_web_mvc.Models.Seller
+﻿@model sales_web_mvc.Models.ViewModels.SellerFormViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
 <h2>Create</h2>
@@ -11,32 +11,37 @@
 <h4>Seller</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div class="col">
-                <label asp-for="Name" class="col-form-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="col">
-                <label asp-for="Email" class="col-form-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="col">
-                <label asp-for="BirthDate" class="col-form-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="col">
-                <label asp-for="BaseSalary" class="col-form-label"></label>
-                <input asp-for="BaseSalary" class="form-control" />
-                <span asp-validation-for="BaseSalary" class="text-danger"></span>
-            </div>
-            <div class="col">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div class="col">
+				<label asp-for="Seller.Name" class="col-form-label"></label>
+				<input asp-for="Seller.Name" class="form-control" />
+				<span asp-validation-for="Seller.Name" class="text-danger"></span>
+			</div>
+			<div class="col">
+				<label asp-for="Seller.Email" class="col-form-label"></label>
+				<input asp-for="Seller.Email" class="form-control" />
+				<span asp-validation-for="Seller.Email" class="text-danger"></span>
+			</div>
+			<div class="col">
+				<label asp-for="Seller.BirthDate" class="col-form-label"></label>
+				<input asp-for="Seller.BirthDate" class="form-control" />
+				<span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
+			</div>
+			<div class="col">
+				<label asp-for="Seller.BaseSalary" class="col-form-label"></label>
+				<input asp-for="Seller.BaseSalary" class="form-control" />
+				<span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
+			</div>
+			<div class="col">
+				<label asp-for="Seller.DepartmentId" class="col-form-label"></label>
+				<select asp-for="Seller.DepartmentId" class="form-control" asp-items="@(new SelectList(Model.Departments,"Id","Name"))"></select>
+				<span asp-validation-for="Seller.DepartmentId" class="text-danger"></span>
+			</div>
+			<div class="col">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
 </div>
 
