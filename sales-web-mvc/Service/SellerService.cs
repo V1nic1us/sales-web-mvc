@@ -15,7 +15,7 @@ namespace sales_web_mvc.Service
 
         public List<Seller> FindAll()
         {
-            return _context.Seller.ToList();
+            return _context.Seller.Include(s => s.Department).ToList();
         }
 
         public void Insert(Seller obj)
@@ -23,5 +23,17 @@ namespace sales_web_mvc.Service
             _context.Add(obj);
             _context.SaveChanges();
         }
+
+        public Seller FindById(int id)
+        {
+			return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+		}
+
+        public void Remove(int id)
+        {
+			var obj = _context.Seller.Find(id);
+			_context.Seller.Remove(obj);
+			_context.SaveChanges();
+		}
     }
 }
