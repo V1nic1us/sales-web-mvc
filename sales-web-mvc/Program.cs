@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using sales_web_mvc.Data;
 using sales_web_mvc.Service;
 
@@ -24,6 +25,16 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+var DefaultCulture = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+	DefaultRequestCulture = new RequestCulture(DefaultCulture),
+	SupportedCultures = new List<CultureInfo> { DefaultCulture },
+	SupportedUICultures = new List<CultureInfo> { DefaultCulture }
+};
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
